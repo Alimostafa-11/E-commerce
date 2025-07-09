@@ -1,0 +1,312 @@
+import React, { useContext, useEffect, useState } from "react";
+import style from "./Register.module.css";
+import { useFormik } from "formik";
+import axios from "axios";
+import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../Context/UserContext";
+
+// const Register = () => {
+//   let [errMsg, seterrMsg] = useState(0);
+//   async function submitForm(val) {
+//     let { data } = await axios.post(
+//       `https://ecommerce.routemisr.com/api/v1/auth/signup`,
+//       val
+//     );
+//     console.log(data);
+//   }
+
+const Register = () => {
+  let { setuserLogin } = useContext(UserContext);
+  let [errMsg, seterrMsg] = useState(null);
+  let [isLoading, setisLoading] = useState(false);
+  let navigate = useNavigate();
+  function submitForm(val) {
+    setisLoading(true);
+    axios
+      .post("https://ecommerce.routemisr.com/api/v1/auth/signup", val)
+      .then(({ data }) => {
+        setisLoading(false);
+        console.log(data?.token);
+
+        if (data.message == "success") {
+          setuserLogin(data?.token)
+          navigate("/");
+          localStorage.setItem("usertoken", data?.token);
+        }
+      })
+      .catch((error) => {
+        setisLoading(false);
+        console.log(error?.response?.data?.message);
+        seterrMsg(error?.response?.data?.message);
+      });
+  }
+
+  let validationSchema = Yup.object().shape({
+    name: Yup.string()
+      .required("Name is required")
+      .min(3, "name must be at least 3 characters")
+      .max(10, "name must be at most 10 characters"),
+    email: Yup.string().email("Invalid email").required("Email is required"),
+    password: Yup.string()
+      .min(3, "Password must be at least 3 characters")
+      .required("Password is required")
+      .matches(/^[A-Z][a-z0-9]{4,10}$/, "invalid password"),
+    rePassword: Yup.string()
+      .oneOf([Yup.ref("password"), null], "invalid rePassword")
+      .required("rePassword is required"),
+    phone: Yup.string()
+      .required("Phone number is required")
+      .matches(/^01[0125][0-9]{8}$/, "invalid phone"),
+  });
+
+  let formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      password: "",
+      rePassword: "",
+      phone: "",
+    },
+    validationSchema,
+    onSubmit: submitForm,
+  });
+
+  useEffect(() => {}, []);
+
+  return (
+    <>
+      <div className="bg-gray-100 flex h-screen items-center justify-center px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-md space-y-8">
+          <div className="bg-white shadow-md rounded-md p-6">
+            <img
+              className="mx-auto h-12 w-auto"
+              src="https://www.svgrepo.com/show/499664/user-happy.svg"
+              alt="user icon"
+            />
+            <h2 className="my-3 text-center text-3xl font-bold tracking-tight text-green-700">
+              Register Now
+            </h2>
+            <form
+              onSubmit={formik.handleSubmit}
+              className="space-y-6"
+              method="POST"
+            >
+              <div>
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Username
+                </label>
+                <div className="mt-1">
+                  <input
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.name}
+                    id="name"
+                    name="name"
+                    type="text"
+                    className="px-2 py-3 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm"
+                  />
+                </div>
+              </div>
+
+              {formik.errors.name && formik.touched.name ? (
+                <div className="bg-red-200 px-6 py-4 my-4 rounded-md text-lg flex items-center mx-auto max-w-lg">
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="text-red-600 w-5 h-5 sm:w-5 sm:h-5 mr-3"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M11.983,0a12.206,12.206,0,0,0-8.51,3.653A11.8,11.8,0,0,0,0,12.207,11.779,11.779,0,0,0,11.8,24h.214A12.111,12.111,0,0,0,24,11.791h0A11.766,11.766,0,0,0,11.983,0ZM10.5,16.542a1.476,1.476,0,0,1,1.449-1.53h.027a1.527,1.527,0,0,1,1.523,1.47,1.475,1.475,0,0,1-1.449,1.53h-.027A1.529,1.529,0,0,1,10.5,16.542ZM11,12.5v-6a1,1,0,0,1,2,0v6a1,1,0,1,1-2,0Z"
+                    />
+                  </svg>
+                  <span className="text-red-800">{formik.errors.name}</span>
+                </div>
+              ) : null}
+
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Email
+                </label>
+                <div className="mt-1">
+                  <input
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.email}
+                    id="email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    className="px-2 py-3 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm"
+                  />
+                </div>
+              </div>
+
+              {formik.errors.email && formik.touched.email ? (
+                <div className="bg-red-200 px-6 py-4 my-4 rounded-md text-lg flex items-center mx-auto max-w-lg">
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="text-red-600 w-5 h-5 sm:w-5 sm:h-5 mr-3"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M11.983,0a12.206,12.206,0,0,0-8.51,3.653A11.8,11.8,0,0,0,0,12.207,11.779,11.779,0,0,0,11.8,24h.214A12.111,12.111,0,0,0,24,11.791h0A11.766,11.766,0,0,0,11.983,0ZM10.5,16.542a1.476,1.476,0,0,1,1.449-1.53h.027a1.527,1.527,0,0,1,1.523,1.47,1.475,1.475,0,0,1-1.449,1.53h-.027A1.529,1.529,0,0,1,10.5,16.542ZM11,12.5v-6a1,1,0,0,1,2,0v6a1,1,0,1,1-2,0Z"
+                    />
+                  </svg>
+                  <span className="text-red-800">{formik.errors.email}</span>
+                </div>
+              ) : null}
+
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Password
+                </label>
+                <div className="mt-1">
+                  <input
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.password}
+                    id="password"
+                    name="password"
+                    type="password"
+                    autoComplete="password"
+                    className="px-2 py-3 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm"
+                  />
+                </div>
+              </div>
+
+              {formik.errors.password && formik.touched.password ? (
+                <div className="bg-red-200 px-6 py-4 my-4 rounded-md text-lg flex items-center mx-auto max-w-lg">
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="text-red-600 w-5 h-5 sm:w-5 sm:h-5 mr-3"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M11.983,0a12.206,12.206,0,0,0-8.51,3.653A11.8,11.8,0,0,0,0,12.207,11.779,11.779,0,0,0,11.8,24h.214A12.111,12.111,0,0,0,24,11.791h0A11.766,11.766,0,0,0,11.983,0ZM10.5,16.542a1.476,1.476,0,0,1,1.449-1.53h.027a1.527,1.527,0,0,1,1.523,1.47,1.475,1.475,0,0,1-1.449,1.53h-.027A1.529,1.529,0,0,1,10.5,16.542ZM11,12.5v-6a1,1,0,0,1,2,0v6a1,1,0,1,1-2,0Z"
+                    />
+                  </svg>
+                  <span className="text-red-800">{formik.errors.password}</span>
+                </div>
+              ) : null}
+
+              <div>
+                <label
+                  htmlFor="rePassword"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  rePassword
+                </label>
+                <div className="mt-1">
+                  <input
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.rePassword}
+                    id="rePassword"
+                    name="rePassword"
+                    type="password"
+                    autoComplete="re-password"
+                    className="px-2 py-3 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm"
+                  />
+                </div>
+              </div>
+
+              {formik.errors.rePassword && formik.touched.rePassword ? (
+                <div className="bg-red-200 px-6 py-4 my-4 rounded-md text-lg flex items-center mx-auto max-w-lg">
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="text-red-600 w-5 h-5 sm:w-5 sm:h-5 mr-3"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M11.983,0a12.206,12.206,0,0,0-8.51,3.653A11.8,11.8,0,0,0,0,12.207,11.779,11.779,0,0,0,11.8,24h.214A12.111,12.111,0,0,0,24,11.791h0A11.766,11.766,0,0,0,11.983,0ZM10.5,16.542a1.476,1.476,0,0,1,1.449-1.53h.027a1.527,1.527,0,0,1,1.523,1.47,1.475,1.475,0,0,1-1.449,1.53h-.027A1.529,1.529,0,0,1,10.5,16.542ZM11,12.5v-6a1,1,0,0,1,2,0v6a1,1,0,1,1-2,0Z"
+                    />
+                  </svg>
+                  <span className="text-red-800">
+                    {formik.errors.rePassword}
+                  </span>
+                </div>
+              ) : null}
+
+              <div>
+                <label
+                  htmlFor="phone"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  phone
+                </label>
+                <div className="mt-1">
+                  <input
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.phone}
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    autoComplete="tel"
+                    className="px-2 py-3 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm"
+                  />
+                </div>
+              </div>
+
+              {formik.errors.phone && formik.touched.phone ? (
+                <div className="bg-red-200 px-6 py-4  my-4 rounded-md text-lg flex items-center mx-auto max-w-lg">
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="text-red-600 w-5 h-5 sm:w-5 sm:h-5 mr-3"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M11.983,0a12.206,12.206,0,0,0-8.51,3.653A11.8,11.8,0,0,0,0,12.207,11.779,11.779,0,0,0,11.8,24h.214A12.111,12.111,0,0,0,24,11.791h0A11.766,11.766,0,0,0,11.983,0ZM10.5,16.542a1.476,1.476,0,0,1,1.449-1.53h.027a1.527,1.527,0,0,1,1.523,1.47,1.475,1.475,0,0,1-1.449,1.53h-.027A1.529,1.529,0,0,1,10.5,16.542ZM11,12.5v-6a1,1,0,0,1,2,0v6a1,1,0,1,1-2,0Z"
+                    />
+                  </svg>
+                  <span className="text-red-800">{formik.errors.phone}</span>
+                </div>
+              ) : null}
+
+              <div>
+                <button
+                  type="submit"
+                  className="flex cursor-pointer w-full justify-center rounded-md border border-transparent bg-green-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2"
+                >
+                  {isLoading ? (
+                    <i className="fas fa-spinner fa-spin "></i>
+                  ) : (
+                    "Register Account"
+                  )}
+                </button>
+              </div>
+
+              {/* error alert */}
+              {errMsg ? (
+                <div className="bg-red-200 px-6 py-4 my-4 rounded-md text-lg flex items-center mx-auto max-w-lg">
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="text-red-600 w-5 h-5 sm:w-5 sm:h-5 mr-3"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M11.983,0a12.206,12.206,0,0,0-8.51,3.653A11.8,11.8,0,0,0,0,12.207,11.779,11.779,0,0,0,11.8,24h.214A12.111,12.111,0,0,0,24,11.791h0A11.766,11.766,0,0,0,11.983,0ZM10.5,16.542a1.476,1.476,0,0,1,1.449-1.53h.027a1.527,1.527,0,0,1,1.523,1.47,1.475,1.475,0,0,1-1.449,1.53h-.027A1.529,1.529,0,0,1,10.5,16.542ZM11,12.5v-6a1,1,0,0,1,2,0v6a1,1,0,1,1-2,0Z"
+                    />
+                  </svg>
+                  <span className="text-red-800">{errMsg}</span>
+                </div>
+              ) : null}
+            </form>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Register;
