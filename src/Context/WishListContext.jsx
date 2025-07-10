@@ -9,10 +9,7 @@ export default function WishListContextProvider(props) {
 
   let [totalPrice, settotalPrice] = useState(0);
   let [products, setproducts] = useState(null);
-  let headers = { token: localStorage.getItem("usertoken") };
-  let token = localStorage.getItem("usertoken");
-
- 
+  let token = localStorage.getItem("userToken");
 
   // function to add a product to the cart
   function addToWishList(prodId) {
@@ -22,9 +19,7 @@ export default function WishListContextProvider(props) {
         {
           productId: prodId,
         },
-        {
-          headers,
-        }
+        { headers: { token: localStorage.getItem("userToken") } }
       )
       .then((response) => {
         getUserWishList();
@@ -40,9 +35,7 @@ export default function WishListContextProvider(props) {
       .get(
         `https://ecommerce.routemisr.com/api/v1/wishlist`,
 
-        {
-          headers,
-        }
+        { headers: { token: localStorage.getItem("userToken") } }
       )
       .then((response) => {
         setproducts(response?.data?.data);
@@ -59,9 +52,7 @@ export default function WishListContextProvider(props) {
       .delete(
         `https://ecommerce.routemisr.com/api/v1/wishlist/${prodId}`,
 
-        {
-          headers,
-        }
+        { headers: { token: localStorage.getItem("userToken") } }
       )
       .then((response) => {
         getUserWishList();

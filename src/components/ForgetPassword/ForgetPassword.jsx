@@ -19,7 +19,7 @@ const ForgetPassword = () => {
         setisLoading(false);
 
         if (response.data?.statusMsg === "success") {
-          setuserLogin(localStorage.setItem("usertoken", response.data.token));
+          setuserLogin(localStorage.setItem("userToken", response.data.token));
           navigate("/verifyReset");
         }
       })

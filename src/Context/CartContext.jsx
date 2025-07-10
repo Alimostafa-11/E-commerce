@@ -9,8 +9,7 @@ export default function CartContextProvider(props) {
   let [cartId, setcartId] = useState(null);
   let [totalPrice, settotalPrice] = useState(0);
   let [products, setproducts] = useState(null);
-  let headers = { token: localStorage.getItem("usertoken") };
-  let token = localStorage.getItem("usertoken");
+  let token = localStorage.getItem("userToken");
 
   function resetCart() {
     setcartId(null);
@@ -27,9 +26,7 @@ export default function CartContextProvider(props) {
         {
           productId: prodId,
         },
-        {
-          headers,
-        }
+        { headers: { token: localStorage.getItem("userToken") } }
       )
       .then((response) => {
         getUserCartItem();
@@ -45,9 +42,7 @@ export default function CartContextProvider(props) {
       .get(
         `https://ecommerce.routemisr.com/api/v1/cart`,
 
-        {
-          headers,
-        }
+        { headers: { token: localStorage.getItem("userToken") } }
       )
       .then((response) => {
         setnumOfCartItems(response?.data?.numOfCartItems);
@@ -69,9 +64,7 @@ export default function CartContextProvider(props) {
         {
           count: count,
         },
-        {
-          headers,
-        }
+        { headers: { token: localStorage.getItem("userToken") } }
       )
       .then((response) => {
         setnumOfCartItems(response?.data?.numOfCartItems);
@@ -90,9 +83,7 @@ export default function CartContextProvider(props) {
       .delete(
         `https://ecommerce.routemisr.com/api/v1/cart/${prodId}`,
 
-        {
-          headers,
-        }
+        { headers: { token: localStorage.getItem("userToken") } }
       )
       .then((response) => {
         setnumOfCartItems(response?.data?.numOfCartItems);
@@ -110,9 +101,7 @@ export default function CartContextProvider(props) {
       .delete(
         `https://ecommerce.routemisr.com/api/v1/cart`,
 
-        {
-          headers,
-        }
+        { headers: { token: localStorage.getItem("userToken") } }
       )
       .then((response) => {
         setproducts([]);

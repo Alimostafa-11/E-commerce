@@ -6,15 +6,7 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
 
-// const Register = () => {
-//   let [errMsg, seterrMsg] = useState(0);
-//   async function submitForm(val) {
-//     let { data } = await axios.post(
-//       `https://ecommerce.routemisr.com/api/v1/auth/signup`,
-//       val
-//     );
-//     console.log(data);
-//   }
+
 
 const Register = () => {
   let { setuserLogin } = useContext(UserContext);
@@ -32,7 +24,7 @@ const Register = () => {
         if (data.message == "success") {
           setuserLogin(data?.token)
           navigate("/");
-          localStorage.setItem("usertoken", data?.token);
+          localStorage.setItem("userToken", data?.token);
         }
       })
       .catch((error) => {

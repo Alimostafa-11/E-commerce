@@ -1,21 +1,19 @@
-import React, { useEffect, useState } from "react";
-import style from "./ProtectRoute.module.css";
+import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
+import { UserContext } from "../../Context/UserContext";
 
-const ProtectRoute = (props) => {
-  if (localStorage.getItem("usertoken") !== null)
-  {
-    // login
-    return props.children
+const ProtectRoute = ({ children }) => {
+  const { userLogin, isLoading } = useContext(UserContext);
 
+  if (isLoading) {
+    return <div className="text-center mt-10">Loading...</div>;
   }
-  
-  
-  else {
-    // nologin
-    return <Navigate to='/login'/>
+
+  if (userLogin === null) {
+    return <Navigate to="/login" />;
+  } else {
+    return children;
   }
-    return <div></div>;
 };
 
 export default ProtectRoute;

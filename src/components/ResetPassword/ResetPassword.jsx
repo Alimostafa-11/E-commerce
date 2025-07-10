@@ -15,19 +15,19 @@ const ResetPassword = () => {
   let navigate = useNavigate();
   function ResetPass(val) {
     setisLoading(true);
-    const token = localStorage.getItem("usertoken");
+    const token = localStorage.getItem("userToken");
     axios
       .put("https://ecommerce.routemisr.com/api/v1/auth/resetPassword", val, {
         headers: {
-          token: token, // تأكد أن هذا هو الاسم الصحيح حسب الـ backend
+          token: token, 
         },
       })
       .then((response) => {
         setisLoading(false);
 
         if (response.data?.token) {
-          setuserLogin(response.data.token);
-          setuserLogin(localStorage.setItem("usertoken", response.data.token));
+          // setuserLogin(response.data.token);
+          setuserLogin(localStorage.setItem("userToken", response.data.token));
           toast.success("Password reset successfully!");
 
           navigate("/");
@@ -48,7 +48,7 @@ const ResetPassword = () => {
       .matches(/^[A-Z][a-z0-9]{4,10}$/, "invalid password"),
     resetCode: Yup.string()
       .required("Reset code is required")
-      .matches(/^\d{6}$/, "Reset code must be 6 digits"), // إن أمكن
+      .matches(/^\d{6}$/, "Reset code must be 6 digits"), 
   });
 
   let formik = useFormik({

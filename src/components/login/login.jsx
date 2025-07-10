@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
 
 const Login = () => {
-  let { setuserLogin } = useContext(UserContext);
+  let { userLogin, setuserLogin } = useContext(UserContext);
   let [errMsg, seterrMsg] = useState(null);
   let [isLoading, setisLoading] = useState(false);
   let navigate = useNavigate();
@@ -21,9 +21,9 @@ const Login = () => {
         console.log(data?.token);
 
         if (data.message == "success") {
-          setuserLogin(data?.token);
-          navigate("/");
-          localStorage.setItem("usertoken", data?.token);
+          localStorage.setItem("userToken", data.token);
+          setuserLogin(data.token);
+            navigate("/");
         }
       })
       .catch((error) => {
@@ -48,7 +48,6 @@ const Login = () => {
     validationSchema,
     onSubmit: submitForm,
   });
-
   useEffect(() => {}, []);
 
   return (

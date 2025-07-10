@@ -8,7 +8,7 @@ import {toast} from "react-hot-toast"
 const CheckOut = () => {
   let [ispayonline, setispayonline] = useState(true);
   let { cartId, resetCart } = useContext(CartContext);
-  let headers = { token: localStorage.getItem("usertoken") };
+  let headers = { token: localStorage.getItem("userToken") };
 
   function detectPayment(val) {
     if (ispayonline) {

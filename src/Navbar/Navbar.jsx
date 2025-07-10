@@ -13,7 +13,8 @@ const Navbar = () => {
   let { counter } = useContext(CounterContext);
 
   function logout() {
-    localStorage.removeItem("usertoken");
+    localStorage.removeItem("userToken");
+
     setuserLogin(null);
     navigate("/login");
   }
@@ -29,8 +30,8 @@ const Navbar = () => {
               {userLogin !== null ? (
                 <>
                   <li className="mx-2 py-2 text-xl text-slate-800">
-                    <NavLink to="" className="relative active">
-                      Home {counter}
+                    <NavLink to="/" className="relative active">
+                      Home
                     </NavLink>
                   </li>
                   <li className="mx-2 py-2 text-xl text-slate-800  ">

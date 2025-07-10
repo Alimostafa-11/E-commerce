@@ -1,21 +1,23 @@
-import { createContext, useActionState, useEffect, useState } from "react";
-import axios from "axios";
+import React, { createContext, useEffect, useState } from "react";
 
-export let UserContext = createContext(0);
+export let UserContext = createContext();
 
-export default function UserContextProvider(props) {
-  let [userLogin, setuserLogin] = useState(null);
+export default function UserContextProvider({ children }) {
+  const [userLogin, setuserLogin] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // handle reload
   useEffect(() => {
-    if (localStorage.getItem("usertoken") !== null) {
-      setuserLogin(localStorage.getItem("usertoken"));
+    const token = localStorage.getItem("userToken");
+
+    if (token) {
+      setuserLogin(token);
     }
+    setIsLoading(false);
   }, []);
 
   return (
-    <UserContext.Provider value={{ userLogin, setuserLogin }}>
-      {props.children}
+    <UserContext.Provider value={{ userLogin, setuserLogin, isLoading }}>
+      {children}
     </UserContext.Provider>
   );
 }

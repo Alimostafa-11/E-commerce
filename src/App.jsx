@@ -21,102 +21,105 @@ import CheckOut from "./components/CheckOut/CheckOut";
 import ForgetPassword from "./components/ForgetPassword/ForgetPassword";
 import VerifyReset from "./components/VerifyReset/VerifyReset";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
-import WishList from "./components/WishList/WishList"; 
+import WishList from "./components/WishList/WishList";
 import WishListContextProvider from "./Context/WishListContext";
 
-let route = createBrowserRouter([
-  {
-    path: "",
-    element: <Layout />,
-    children: [
-      {
-        index: true,
-        element: (
-          <ProtectRoute>
-            <Home />
-          </ProtectRoute>
-        ),
-      },
-      {
-        path: "brands",
-        element: (
-          <ProtectRoute>
-            <Brands />
-          </ProtectRoute>
-        ),
-      },
-      {
-        path: "productdetails/:id/:category",
-        element: (
-          <ProtectRoute>
-            <Productdetails />
-          </ProtectRoute>
-        ),
-      },
-      {
-        path: "cart",
-        element: (
-          <ProtectRoute>
-            <Cart />
-          </ProtectRoute>
-        ),
-      },
-      {
-        path: "categories",
-        element: (
-          <ProtectRoute>
-            <Categories />
-          </ProtectRoute>
-        ),
-      },
-      {
-        path: "login",
-        element: <Login />,
-      },
-      {
-        path: "register",
-        element: <Register />,
-      },
-      {
-        path: "products",
-        element: (
-          <ProtectRoute>
-            <Products />
-          </ProtectRoute>
-        ),
-      },
-      {
-        path: "checkout",
-        element: (
-          <ProtectRoute>
-            <CheckOut />
-          </ProtectRoute>
-        ),
-      },
-      {
-        path: "forgetpassword",
-        element: <ForgetPassword />,
-      },
-      {
-        path: "verifyReset",
-        element: <VerifyReset />,
-      },
-      {
-        path: "resetPassword",
-        element: <ResetPassword />,
-      },
-      {
-        path: "wishlist",
-        element: (
-          <ProtectRoute>
-            <WishList/>
-          </ProtectRoute>
-        ),
-      },
-      { path: "*", element: <Notfound /> },
-    ],
-  },
-]);
+let route = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        {
+          index: true,
+          element: (
+            <ProtectRoute>
+              <Home />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "brands",
+          element: (
+            <ProtectRoute>
+              <Brands />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "productdetails/:id/:category",
+          element: (
+            <ProtectRoute>
+              <Productdetails />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "cart",
+          element: (
+            <ProtectRoute>
+              <Cart />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "categories",
+          element: (
+            <ProtectRoute>
+              <Categories />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "login",
+          element: <Login />,
+        },
+        {
+          path: "register",
+          element: <Register />,
+        },
+        {
+          path: "products",
+          element: (
+            <ProtectRoute>
+              <Products />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "checkout",
+          element: (
+            <ProtectRoute>
+              <CheckOut />
+            </ProtectRoute>
+          ),
+        },
+        {
+          path: "forgetpassword",
+          element: <ForgetPassword />,
+        },
+        {
+          path: "verifyReset",
+          element: <VerifyReset />,
+        },
+        {
+          path: "resetPassword",
+          element: <ResetPassword />,
+        },
+        {
+          path: "wishlist",
+          element: (
+            <ProtectRoute>
+              <WishList />
+            </ProtectRoute>
+          ),
+        },
+        { path: "*", element: <Notfound /> },
+      ],
+    },
+  ],
+  { basename: "/E-commerce" }
+);
 
 function App() {
   // let [count, setCount] = useState(0);

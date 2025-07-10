@@ -6,8 +6,7 @@ import toast from "react-hot-toast";
 import { WisListContext } from "../../Context/WishListContext";
 
 const WishList = () => {
-  const { products, deleteWishList } =
-    useContext(WisListContext);
+  const { products, deleteWishList } = useContext(WisListContext);
   const [displayedProducts, setDisplayedProducts] = useState([]);
 
   const { addToCart } = useContext(CartContext);

@@ -55,10 +55,10 @@ const RecentProducts = () => {
   async function fetchWishlist() {
     try {
       const wishlistItems = await getUserWishList();
-      const wishedIds = wishlistItems?.map((item) => item._id);
-      setisWished(wishedIds);
+      const wishedIds = wishlistItems?.map((item) => item._id) || [];
+      setisWished(wishedIds || []);
     } catch (error) {
-      toast.error("Error loading wishlist");
+      toast.error(error?.response?.data?.message || "Error loading wishlist");
     }
   }
 
