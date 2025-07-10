@@ -26,15 +26,18 @@ const Navbar = () => {
       <nav className="bg-slate-300 py-4 fixed top-0 left-0 right-0 z-50">
         <div className="container flex flex-col md:flex-row justify-between items-center m-auto max-w-7xl">
           <div className="flex justify-between items-center w-full md:w-auto">
+            {numOfCartItems > 0 && (
+              <span className="absolute  start-1 top-1 md:hidden bg-green-100 text-green-800 text-[12px] font-medium px-1 w-4 h-5 text-center rounded-full dark:bg-green-900 dark:text-green-300">
+                {numOfCartItems}
+              </span>
+            )}
             <img className="mx-2" width={130} src={logo} alt="logo" />
+
             <button
               className="md:hidden cursor-pointer text-2xl mx-4"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               <i className="fas fa-bars"></i>{" "}
-              <span className="absolute  end-3 top-3 bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-sm dark:bg-green-900 dark:text-green-300">
-                {numOfCartItems}
-              </span>
             </button>
           </div>
 
@@ -59,11 +62,13 @@ const Navbar = () => {
                     <NavLink to="wishlist">WishList</NavLink>
                   </li>
                   <li className="mx-2 py-2 text-xl text-slate-800 relative">
-                    <NavLink to="cart">
+                    <NavLink to="cart" >
                       Cart
-                      <span className="absolute -top-2 -end-2 bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-sm dark:bg-green-900 dark:text-green-300">
-                        {numOfCartItems}
-                      </span>
+                      {numOfCartItems > 0 && (
+                        <span className="absolute  md:-top-2 md:-end-2 bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-sm dark:bg-green-900 dark:text-green-300">
+                          {numOfCartItems}
+                        </span>
+                      )}
                     </NavLink>
                   </li>
                   <li className="mx-2 py-2 text-xl text-slate-800">

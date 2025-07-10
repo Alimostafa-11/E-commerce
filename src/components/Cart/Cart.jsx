@@ -87,13 +87,13 @@ const Cart = () => {
                           <div className="flex items-center gap-4">
                             <img
                               src={prod?.product?.imageCover}
-                              className="w-80 md:w-24 max-w-full max-h-full"
+                              className="w-70 m-auto md:w-50 max-w-full max-h-full"
                               alt="Product"
                             />
-                            <span className="font-semibold text-gray-600">
-                              {prod?.product?.title}
-                            </span>
                           </div>
+                          <span className="font-semibold text-center pb-5 text-gray-600">
+                            {prod?.product?.title}
+                          </span>
 
                           <div className="flex items-center justify-between md:justify-end flex-wrap gap-2 mt-2 md:mt-0">
                             <button

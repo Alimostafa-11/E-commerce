@@ -73,13 +73,14 @@ const WishList = () => {
                       <div className="flex items-center gap-4">
                         <img
                           src={prod?.imageCover}
-                          className="w-80 md:w-24 max-w-full max-h-full"
+                          className="w-70 m-auto md:w-50 max-w-full max-h-full"
                           alt="Product"
                         />
-                        <span className="font-semibold text-gray-600">
-                          {prod?.title}
-                        </span>
                       </div>
+
+                      <span className="font-semibold text-center pb-5  text-gray-600">
+                        {prod?.title}
+                      </span>
                       <div className="flex items-center justify-between md:justify-end flex-wrap gap-2 mt-2 md:mt-0">
                         <td className="px-6 py-4 text-center text-gray-900 dark:text-white">
                           <button
