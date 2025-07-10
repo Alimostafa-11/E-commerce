@@ -31,10 +31,10 @@ const Gategories = () => {
                 <div className="product p-5">
                   <img
                     src={category?.image}
-                    className="h-[400px]  w-full"
+                    className="h-[300px]  w-full object-fit-cover"
                     alt={category?.title}
                   />
-                  <span className="text-green-400  text-xl mx-20">
+                  <span className="text-green-400  text-xl">
                     {category?.name}
                   </span>
                 </div>

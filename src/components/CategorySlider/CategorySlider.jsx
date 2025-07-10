@@ -57,15 +57,17 @@ const CategorySlider = () => {
   }, []);
   return (
     <>
-      <div className=" my-3">
-        <h2 className="text-xl my-3 font-medium">Shop Popular Categories</h2>
+      <div className=" my-3 ">
+        <h2 className="text-xl my-3 py-3 font-medium text-center md:text-left">
+          Shop Popular Categories
+        </h2>
 
-        <Slider {...settings}>
+        <Slider {...settings} className="text-center">
           {allCategory?.map((category) => {
             return (
               <div>
                 <img
-                  className="h-[200px]"
+                  className="h-[300px]  w-full object-fit-cover"
                   src={category.image}
                   alt={category?.name}
                 />

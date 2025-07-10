@@ -34,7 +34,7 @@ const Brands = () => {
                     className="h-[400px]  w-full"
                     alt={brand?.title}
                   />
-                  <span className="text-green-400 text-xl mx-40">
+                  <span className="text-green-400 text-xl">
                     {brand?.name}
                   </span>
                 </div>

@@ -23,7 +23,7 @@ const MainSlider = () => {
   return (
     <>
       <div className="flex flex-wrap">
-        <div className="w-3/4">
+        <div className="w-3/4 ">
           <Slider {...settings}>
             <img className="h-[400px]" src={img3} alt="" />
             <img className="h-[400px]" src={img4} alt="" />
