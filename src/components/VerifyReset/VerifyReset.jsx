@@ -32,8 +32,6 @@ const VerifyReset = () => {
       });
   }
 
-  
-
   let validationSchema = Yup.object().shape({
     resetCode: Yup.string()
       .required("Code is required")

@@ -45,10 +45,13 @@ const ResetPassword = () => {
     newPassword: Yup.string()
       .min(3, "Password must be at least 3 characters")
       .required("Password is required")
-      .matches(/^[A-Z][a-z0-9]{4,10}$/, "invalid password"),
+      .matches(
+        /^[A-Z][a-z0-9]{4,10}$/,
+        "must be start with capital letter and lowercase letters and numbers"
+      ),
     resetCode: Yup.string()
       .required("Reset code is required")
-      .matches(/^\d{6}$/, "Reset code must be 6 digits"), 
+      .matches(/^\d{6}$/, "Reset code must be 6 digits"),
   });
 
   let formik = useFormik({

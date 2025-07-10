@@ -43,7 +43,7 @@ const Register = () => {
     password: Yup.string()
       .min(3, "Password must be at least 3 characters")
       .required("Password is required")
-      .matches(/^[A-Z][a-z0-9]{4,10}$/, "invalid password"),
+      .matches(/^[A-Z][a-z0-9]{4,10}$/, "must be start with capital letter and lowercase letters and numbers"),
     rePassword: Yup.string()
       .oneOf([Yup.ref("password"), null], "invalid rePassword")
       .required("rePassword is required"),
