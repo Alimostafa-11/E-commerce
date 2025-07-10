@@ -31,7 +31,10 @@ const Navbar = () => {
               className="md:hidden cursor-pointer text-2xl mx-4"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              <i className="fas fa-bars"></i>
+              <i className="fas fa-bars"></i>{" "}
+              <span className="absolute  end-3 top-3 bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-sm dark:bg-green-900 dark:text-green-300">
+                {numOfCartItems}
+              </span>
             </button>
           </div>
 
@@ -58,7 +61,7 @@ const Navbar = () => {
                   <li className="mx-2 py-2 text-xl text-slate-800 relative">
                     <NavLink to="cart">
                       Cart
-                      <span className="absolute -top-2 -end-5 bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-sm dark:bg-green-900 dark:text-green-300">
+                      <span className="absolute -top-2 -end-2 bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-sm dark:bg-green-900 dark:text-green-300">
                         {numOfCartItems}
                       </span>
                     </NavLink>

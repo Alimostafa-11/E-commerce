@@ -46,7 +46,7 @@ const WishList = () => {
         <div className="relative pt-10 overflow-x-auto shadow-md sm:rounded-lg">
           <h2 className="text-4xl pb-3 text-green-500">My Wish List</h2>
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            {/* <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th scope="col" className="px-16 py-3">
                   <span className="sr-only">Image</span>
@@ -64,41 +64,44 @@ const WishList = () => {
                   Action
                 </th>
               </tr>
-            </thead>
+            </thead> */}
             <tbody>
               {displayedProducts?.map((prod) => (
-                <tr
-                  key={prod?._id}
-                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                >
+                <tr key={prod?._id} className="bg-white border-b  ">
                   <td className="p-4">
-                    <img
-                      src={prod?.imageCover}
-                      className="w-16 md:w-32 max-w-full max-h-full"
-                      alt={prod?.title}
-                    />
-                  </td>
-                  <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                    {prod?.title}
-                  </td>
-                  <td className="px-6 py-4 text-center text-gray-900 dark:text-white">
-                    <button
-                      onClick={() => handleDelete(prod?._id)}
-                      className=" text-red-600 hover:underline dark:text-red-500"
-                    >
-                      Remove
-                    </button>
-                  </td>
-                  <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                    {prod?.price}
-                  </td>
-                  <td className="px-6 py-4 space-x-2">
-                    <button
-                      onClick={() => addProdToCart(prod?._id)}
-                      className="bg-green-500  text-white px-3 py-1 rounded hover:bg-green-600"
-                    >
-                      Add to Cart
-                    </button>
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                      <div className="flex items-center gap-4">
+                        <img
+                          src={prod?.imageCover}
+                          className="w-80 md:w-24 max-w-full max-h-full"
+                          alt="Product"
+                        />
+                        <span className="font-semibold text-gray-600">
+                          {prod?.title}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between md:justify-end flex-wrap gap-2 mt-2 md:mt-0">
+                        <td className="px-6 py-4 text-center text-gray-900 dark:text-white">
+                          <button
+                            onClick={() => handleDelete(prod?._id)}
+                            className=" text-red-600 hover:underline dark:text-red-500"
+                          >
+                            <i class="fa-solid fa-trash"></i> Remove
+                          </button>
+                        </td>
+                        <td className="px-6 py-4 font-semibold text-green-500">
+                          {prod?.price} EGP
+                        </td>
+                        <td className="px-6 py-4 space-x-2">
+                          <button
+                            onClick={() => addProdToCart(prod?._id)}
+                            className="bg-green-500  text-white px-3 py-1 rounded hover:bg-green-600"
+                          >
+                            Add to Cart
+                          </button>
+                        </td>
+                      </div>
+                    </div>
                   </td>
                 </tr>
               ))}
