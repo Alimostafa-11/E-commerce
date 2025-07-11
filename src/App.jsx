@@ -1,14 +1,13 @@
 // import { useState } from "react";
 // import viteLogo from "/vite.svg";
 import "./App.css";
+import { lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Offline, Online } from "react-detect-offline";
 import Layout from "./components/Layout/Layout";
 import Home from "./components/Home/Home";
-import Brands from "./components/Brands/Brands";
-import Cart from "./components/Cart/Cart";
 import Categories from "./components/Gategories/Gategories";
-import Login from "./components/login/login";
-import Register from "./components/Register/Register";
+
 import Products from "./components/Products/Products";
 import Notfound from "./components/Notfound/Notfound";
 import CounterContextProvider from "./Context/CounterContext";
@@ -21,8 +20,13 @@ import CheckOut from "./components/CheckOut/CheckOut";
 import ForgetPassword from "./components/ForgetPassword/ForgetPassword";
 import VerifyReset from "./components/VerifyReset/VerifyReset";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
-import WishList from "./components/WishList/WishList";
-import WishListContextProvider from "./Context/WishListContext";
+
+const Cart = lazy(() => import("./components/Cart/Cart"));
+const WishList = lazy(() => import("./components/WishList/WishList"));
+const Register = lazy(() => import("./components/Register/Register"));
+const Login = lazy(() => import("./components/Cart/Cart"));
+const Brands = lazy(() => import("./components/Brands/Brands"));
+const WishListContextProvider = lazy(() => import("./Context/WishListContext"));
 
 let route = createBrowserRouter(
   [
@@ -132,6 +136,16 @@ function App() {
             <CounterContextProvider>
               <RouterProvider router={route}></RouterProvider>
               <Toaster />
+              <Online>
+                <h2 className="bg-green-400 py-3 rounded-md absolute fixed bottom-0 start-2">
+                  Conected
+                </h2>
+              </Online>
+              <Offline>
+                <h2 className="bg-red-400 py-3 rounded-md absolute fixed bottom-0 start-2">
+                  DisConected
+                </h2>
+              </Offline>
             </CounterContextProvider>
           </CartContextProvider>
         </WishListContextProvider>

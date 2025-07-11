@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import style from "./Brands.module.css";
 import axios from "axios";
 import Spinner from "../Spinner/Spinner";
+import { Helmet } from "react-helmet";
 
 const Brands = () => {
   let [allbrands, setallbrands] = useState(null);
@@ -23,6 +24,9 @@ const Brands = () => {
   }, []);
   return (
     <>
+      <Helmet>
+        <title>Brands Page</title>
+      </Helmet>
       {allbrands?.length > 0 ? (
         <div className="flex gap-y-3 flex-wrap">
           {allbrands?.map((brand) => {
@@ -34,9 +38,7 @@ const Brands = () => {
                     className="h-[400px]  w-full"
                     alt={brand?.title}
                   />
-                  <span className="text-green-400 text-xl">
-                    {brand?.name}
-                  </span>
+                  <span className="text-green-400 text-xl">{brand?.name}</span>
                 </div>
               </div>
             );

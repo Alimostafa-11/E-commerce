@@ -62,7 +62,7 @@ const Navbar = () => {
                     <NavLink to="wishlist">WishList</NavLink>
                   </li>
                   <li className="mx-2 py-2 text-xl text-slate-800 relative">
-                    <NavLink to="cart" >
+                    <NavLink to="cart">
                       Cart
                       {numOfCartItems > 0 && (
                         <span className="absolute  md:-top-2 md:-end-2 bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-sm dark:bg-green-900 dark:text-green-300">

@@ -4,6 +4,7 @@ import { CartContext } from "../../Context/CartContext";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const Cart = () => {
   let [counter, setcounter] = useState(0);
@@ -50,6 +51,9 @@ const Cart = () => {
   useEffect(() => {}, []);
   return (
     <>
+      <Helmet>
+        <title>Cart Page</title>
+      </Helmet>
       {products?.length > 0 ? (
         <div>
           <h2 className="text-xl pb-3 text-green-500">
