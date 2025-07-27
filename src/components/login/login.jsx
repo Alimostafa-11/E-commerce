@@ -23,7 +23,7 @@ const Login = () => {
         if (data.message == "success") {
           localStorage.setItem("userToken", data.token);
           setuserLogin(data.token);
-            navigate("/");
+          navigate("/");
         }
       })
       .catch((error) => {

@@ -24,7 +24,8 @@ import ResetPassword from "./components/ResetPassword/ResetPassword";
 const Cart = lazy(() => import("./components/Cart/Cart"));
 const WishList = lazy(() => import("./components/WishList/WishList"));
 const Register = lazy(() => import("./components/Register/Register"));
-const Login = lazy(() => import("./components/Cart/Cart"));
+const Login = lazy(() => import("./components/login/login"));
+
 const Brands = lazy(() => import("./components/Brands/Brands"));
 const WishListContextProvider = lazy(() => import("./Context/WishListContext"));
 
@@ -137,12 +138,12 @@ function App() {
               <RouterProvider router={route}></RouterProvider>
               <Toaster />
               <Online>
-                <h2 className="bg-green-400 py-3 rounded-md absolute fixed bottom-0 start-2">
+                <h2 className="bg-green-400 py-3 rounded-md fixed bottom-0 start-2">
                   Conected
                 </h2>
               </Online>
               <Offline>
-                <h2 className="bg-red-400 py-3 rounded-md absolute fixed bottom-0 start-2">
+                <h2 className="bg-red-400 py-3 rounded-md  fixed bottom-0 start-2">
                   DisConected
                 </h2>
               </Offline>
