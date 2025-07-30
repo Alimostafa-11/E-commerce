@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import style from "./Footer.module.css";
+import { useContext } from "react";
+import { UserContext } from "../../Context/UserContext";
 const Footer = () => {
-  let [counter, setcounter] = useState(0);
+  const { userLogin } = useContext(UserContext);
 
+  if (!userLogin) return null;
   useEffect(() => {}, []);
   return (
     <>
-      <div className="containe/r w-full m-auto">
+      <div className="container w-full m-auto">
         <footer className="bg-white rounded-lg shadow-sm m-4 dark:bg-gray-200">
           <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
             <span className="text-sm text-gray-900 sm:text-center dark:text-gray-900">
