@@ -1,26 +1,7 @@
 import React, { useEffect, useState } from "react";
 import style from "./Footer.module.css";
-import { useFormik } from "formik";
-import * as Yup from "yup";
 const Footer = () => {
   let [counter, setcounter] = useState(0);
-  let validationSchema = Yup.object().shape({
-    email: Yup.string().email("Invalid email").required("Email is required"),
-    password: Yup.string()
-      .min(3, "Password must be at least 3 characters")
-      .required("Password is required")
-      .matches(
-        /^[A-Z][a-z0-9]{4,10}$/,
-        "must be start with capital letter and lowercase letters and numbers"
-      ),
-  });
-  let formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    validationSchema,
-  });
 
   useEffect(() => {}, []);
   return (
@@ -34,11 +15,7 @@ const Footer = () => {
                 We will send you a link, open it on your phone to download the
                 app
               </p>
-              <form
-                onSubmit={formik.handleSubmit}
-                className="space-y-6"
-                method="POST"
-              >
+              <form className="space-y-6" method="POST">
                 <div className="flex">
                   <label
                     htmlFor="email"
@@ -46,9 +23,6 @@ const Footer = () => {
                   ></label>
                   <div className="mt-1">
                     <input
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.email}
                       id="email"
                       name="email"
                       type="email"
