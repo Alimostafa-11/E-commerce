@@ -2,51 +2,77 @@ import React, { useEffect, useState } from "react";
 import style from "./Footer.module.css";
 import { useContext } from "react";
 import { UserContext } from "../../Context/UserContext";
+import { NavLink } from "react-router-dom";
+import { CartContext } from "../../Context/CartContext";
 const Footer = () => {
   const { userLogin } = useContext(UserContext);
+  let { numOfCartItems } = useContext(CartContext);
 
   if (!userLogin) return null;
   useEffect(() => {}, []);
   return (
     <>
-      <div className="container w-full m-auto">
-        <footer className="bg-white rounded-lg shadow-sm m-4 dark:bg-gray-200">
-          <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-            <span className="text-sm text-gray-900 sm:text-center dark:text-gray-900">
-              <h2 className="text-2xl my-4">Get the FreshCart app</h2>
-              <p className="mb-5">
-                We will send you a link, open it on your phone to download the
-                app
-              </p>
-              <form className="space-y-6" method="POST">
-                <div className="flex">
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-gray-700"
-                  ></label>
-                  <div className="mt-1">
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      placeholder="Email"
-                      className="px-2 w-75 py-3 mt-1 block mx-2 rounded-md border border-gray-300 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm"
-                    />
-                  </div>
-                  <button className="w-full cursor-pointer text-white bg-green-600 py-2 rounded-md my-2">
-                    Share App Link
-                  </button>
-                </div>
-              </form>
-            </span>
-            <div className="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-900 dark:text-gray-900 sm:mt-0">
-              <h3 className="mx-6">Payment Pateners</h3>
-              <h3 className="mx-9">Get deliveries with FreshCart</h3>
+      <footer className="bg-zinc-50 mt-[150px] pb-[30px] text-center text-surface dark:bg-gray-300 dark:text-black">
+        <div className="px-6 pt-6">
+          <form>
+            <div className="gird-cols-1 grid items-center justify-center gap-4 md:grid-cols-3">
+              <div className="md:mb-6 font-bold text-2xl md:ms-auto">
+                <p>
+                  <strong>freshCart</strong>
+                </p>
+              </div>
+
+              <ul className="py-2 -mt-6 md:flex md:flex-row flex-col items-start md:items-center">
+                {userLogin !== null && (
+                  <>
+                    <li className="mx-2 py-2 text-xl text-slate-800">
+                      <NavLink to="/">Home</NavLink>
+                    </li>
+                    <li className="mx-2 py-2 text-xl text-slate-800">
+                      <NavLink to="brands">Brands</NavLink>
+                    </li>
+                    <li className="mx-2 py-2 text-xl text-slate-800">
+                      <NavLink to="products">Products</NavLink>
+                    </li>
+                    <li className="mx-2 py-2 text-xl text-slate-800">
+                      <NavLink to="wishlist">WishList</NavLink>
+                    </li>
+                    <li className="mx-2 py-2 text-xl text-slate-800 relative">
+                      <NavLink to="cart">
+                        Cart
+                        {numOfCartItems > 0 && (
+                          <span className="absolute  md:-top-2 md:-end-2 bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-sm dark:bg-green-900 dark:text-green-300">
+                            {numOfCartItems}
+                          </span>
+                        )}
+                      </NavLink>
+                    </li>
+                    <li className="mx-2 py-2 text-xl text-slate-800">
+                      <NavLink to="categories">Categories</NavLink>
+                    </li>
+                  </>
+                )}
+              </ul>
+
+              <div className="mb-6 md:me-auto">
+                <button
+                  type="button"
+                  className="inline-block text-xl rounded bg-primary px-6 pb-2 pt-2.5 font-medium uppercase leading-normal text-black shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                  data-twe-ripple-init
+                  data-twe-ripple-color="light"
+                >
+                  Subscribe
+                </button>
+              </div>
             </div>
-          </div>
-        </footer>
-      </div>
+          </form>
+        </div>
+
+        <div className="bg-black/5 p-4 text-center">
+          © 2023 Copyright:
+          <a href="https://tw-elements.com/">TW Elements</a>
+        </div>
+      </footer>
     </>
   );
 };
